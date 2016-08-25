@@ -1,0 +1,15 @@
+
+#networkStatusMessage {
+	padding: .75em;
+	color: #fff;
+	font-size: 1em;
+	&.network-status-good {
+		background: #3FBF3F;
+	}
+	&.network-status-warning {
+		background: #FFA90A;
+	}
+	&.network-status-error {
+		background: #E64022;
+	}
+}

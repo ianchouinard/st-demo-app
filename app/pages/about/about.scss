@@ -1,0 +1,33 @@
+
+.appt-card {
+	.unavailable {
+		background: #f2f2f2;
+		span {
+			color: #BF3F3F;
+		}
+	}
+	.available {
+		border-left: 3px solid #3FBF7F;
+		span {
+			color: #3FBF7F;
+		}
+	}
+	.scheduled {
+		background: #fff;
+		border-left: 3px solid #3F7FBF;
+		span {
+			color: #3F7FBF;
+		}
+		button {
+			margin: 20px 0 15px 0;
+		}
+		button span{
+			color: #fff;
+		}
+		.appt-info {
+			margin-top: 7px;
+			padding-top: 7px;
+			border-top: 1px solid #f2f2f2;
+		}
+	}
+}

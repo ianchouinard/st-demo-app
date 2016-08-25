@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Appointments
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>  
+{{ uuid }}
+	<div *ngFor="#appointment of appts" class="appt-card">
+
+	    <ion-card *ngIf="appointment.available" (click)="goToDetails(appointment)" class="available">
+	    	<ion-card-header>
+	            {{ appointment.time }}
+		    </ion-card-header>
+		    <ion-card-content>
+		        <span>Available</span>
+		    </ion-card-content>
+	    </ion-card>
+
+	    <ion-card *ngIf="!appointment.available && appointment.uuid != uuid" class="unavailable">
+	    	<ion-card-header>
+	            {{ appointment.time }}
+		    </ion-card-header>
+		    <ion-card-content>
+		        <span>Not Available</span>
+		    </ion-card-content>
+	    </ion-card>
+
+	    <ion-card *ngIf="appointment.uuid == uuid" class="scheduled">
+	    	<ion-card-header>
+	            {{ appointment.time }}
+		    </ion-card-header>
+		    <ion-card-content>
+		        <span>Scheduled</span>
+		        <div class="appt-info">
+		        	<div>
+		        		<b>Name:</b> {{ appointment.name }}
+		        	</div>
+		        	<div>
+		        		<b>Phone:</b> {{ appointment.phone }}
+		        	</div>
+		        	<div>
+		        		<b>Message:</b> {{ appointment.message }}
+		        	</div>
+		        	<button (click)="cancelAppointment(appointment._id)">Cancel appointment</button>
+		        </div>
+		    </ion-card-content>
+	    </ion-card>
+
+    </div>
+
+</ion-content>  
