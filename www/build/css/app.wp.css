@@ -9209,6 +9209,13 @@ body {
     padding-top: 7px;
     border-top: 1px solid #f2f2f2; }
 
+.loading {
+  font-size: 2em; }
+
+.success {
+  font-size: 1.25em;
+  color: #3FBF7F; }
+
 #networkStatusMessage {
   padding: .75em;
   color: #fff;

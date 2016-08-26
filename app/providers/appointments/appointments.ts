@@ -17,12 +17,8 @@ export class AppointmentService {
     	var payload = JSON.stringify({name: name, phone: phone, message: message, uuid: uuid, available: addOrRemove });
     	let headers = new Headers();
   		headers.append('Content-Type', 'application/json');
-    	this.http.put(apiurl, payload, {headers: headers})
-        	.subscribe(data => {
-         	console.log(data);
-        }, error => {
-            console.log("Error");
-        });
+    	let update = this.http.put(apiurl, payload, {headers: headers});
+        return update;
     }
 
 }

@@ -9,23 +9,32 @@
 
 <ion-content padding>
 
-	<ion-item>
-		<ion-label>Full Name</ion-label>
-		<ion-input [(ngModel)]="name" type="text"></ion-input>
-	</ion-item>
+	<div *ngIf="loading" class="loading">
+		Working........
+	</div>
 
-	<ion-item>
-		<ion-label>Phone Number</ion-label>
-		<ion-input [(ngModel)]="phone" type="text"></ion-input>
-	</ion-item>
+	<div *ngIf="!loading">
+		<ion-item>
+			<ion-label>Full Name</ion-label>
+			<ion-input [(ngModel)]="name" type="text"></ion-input>
+		</ion-item>
 
-	<ion-item>
-		<ion-label>Message</ion-label>
-		<ion-input [(ngModel)]="message" type="text"></ion-input>
-	</ion-item>
+		<ion-item>
+			<ion-label>Phone Number</ion-label>
+			<ion-input [(ngModel)]="phone" type="text"></ion-input>
+		</ion-item>
 
-	<div>
-		<button block (click)="schedule()">Schedule Appointment</button>
+		<ion-item>
+			<ion-label>Message</ion-label>
+			<ion-input [(ngModel)]="message" type="text"></ion-input>
+		</ion-item>
+
+		<div *ngIf="!success">
+			<button block (click)="schedule()">Schedule Appointment</button>
+		</div>
+		<div *ngIf="success" class="success">
+			Success!!!@#$#@! :)
+		</div>
 	</div>
 
 </ion-content>

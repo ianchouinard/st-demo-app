@@ -14,6 +14,7 @@ export class AboutPage {
   public username;
   public uuid;
   public expandDetails = false;
+  public loading = false;
 
   constructor(
     private navCtrl: NavController, 
@@ -22,8 +23,10 @@ export class AboutPage {
   }
 
   public getAppointments() {
+    this.loading = true;
     this.appointments.loadAppointments().subscribe(
       data => {
+        this.loading = false;
         this.appts = data.json();
         this.appts.sort(function(a, b) {
           return parseFloat(a.order) - parseFloat(b.order);
@@ -56,8 +59,15 @@ export class AboutPage {
   }
 
   cancelAppointment(id) {
+    this.loading = true;
     this.appointments.updateAppointment(
       "", "", "", "", id, true
+    ).subscribe(
+    data => {
+      this.getAppointments();
+      },
+      err => console.error(err),
+        () => console.log('completed')
     );
   }
 

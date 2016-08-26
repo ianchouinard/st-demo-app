@@ -121,10 +121,13 @@ var AboutPage = (function () {
         this.platform = platform;
         this.appointments = appointments;
         this.expandDetails = false;
+        this.loading = false;
     }
     AboutPage.prototype.getAppointments = function () {
         var _this = this;
+        this.loading = true;
         this.appointments.loadAppointments().subscribe(function (data) {
+            _this.loading = false;
             _this.appts = data.json();
             _this.appts.sort(function (a, b) {
                 return parseFloat(a.order) - parseFloat(b.order);
@@ -152,7 +155,11 @@ var AboutPage = (function () {
         }
     };
     AboutPage.prototype.cancelAppointment = function (id) {
-        this.appointments.updateAppointment("", "", "", "", id, true);
+        var _this = this;
+        this.loading = true;
+        this.appointments.updateAppointment("", "", "", "", id, true).subscribe(function (data) {
+            _this.getAppointments();
+        }, function (err) { return console.error(err); }, function () { return console.log('completed'); });
     };
     //set uuid on init
     AboutPage.prototype.ngOnInit = function () {
@@ -196,12 +203,18 @@ var ApptSchedule = (function () {
         this.platform = platform;
         this.appointment = this.navParams.get('appointment');
         this.apptId = this.appointment._id;
+        this.loading = false;
+        this.success = false;
     }
     ApptSchedule.prototype.schedule = function () {
         var _this = this;
+        this.loading = true;
         this.platform.ready().then(function () {
             _this.uuid = ionic_native_1.Device.device.uuid;
-            _this.appointments.updateAppointment(_this.name, _this.phone, _this.message, _this.uuid, _this.apptId, false);
+            _this.appointments.updateAppointment(_this.name, _this.phone, _this.message, _this.uuid, _this.apptId, false).subscribe(function (data) {
+                _this.loading = false;
+                _this.success = true;
+            }, function (err) { return console.error(err); }, function () { return console.log('completed'); });
         });
     };
     ApptSchedule.prototype.getId = function () {
@@ -355,12 +368,8 @@ var AppointmentService = (function () {
         var payload = JSON.stringify({ name: name, phone: phone, message: message, uuid: uuid, available: addOrRemove });
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        this.http.put(apiurl, payload, { headers: headers })
-            .subscribe(function (data) {
-            console.log(data);
-        }, function (error) {
-            console.log("Error");
-        });
+        var update = this.http.put(apiurl, payload, { headers: headers });
+        return update;
     };
     AppointmentService = __decorate([
         core_1.Injectable(), 

@@ -9,6 +9,11 @@
 
 <ion-content padding>  
 {{ uuid }}
+
+	<div *ngIf="loading" class="loading">
+		loading.......
+	</div>
+
 	<div *ngFor="#appointment of appts" class="appt-card">
 
 	    <ion-card *ngIf="appointment.available" (click)="goToDetails(appointment)" class="available">
